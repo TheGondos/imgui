@@ -48,7 +48,7 @@
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
+    //ImGui::StyleColorsLight();
 
     // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
     ImGuiStyle& style = ImGui::GetStyle();
@@ -81,6 +81,7 @@
 -(void)updateAndDrawDemoView
 {
     // Start the Dear ImGui frame
+    ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplOpenGL2_NewFrame();
     ImGui_ImplOSX_NewFrame(self);
     ImGui::NewFrame();
