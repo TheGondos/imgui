@@ -980,6 +980,7 @@ namespace ImGui
     IMGUI_API void BeginGroupPanel(const char* name, const ImVec2& size = ImVec2(-1.0f, -1.0f));
     IMGUI_API void EndGroupPanel();
 
+    IMGUI_API bool Splitter(bool split_vertically, float initial_ratio, float thickness, float* size1, float* size2, float min_size1, float min_size2, float splitter_long_axis_size = -1.0f);
 } // namespace ImGui
 
 //-----------------------------------------------------------------------------

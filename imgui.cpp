@@ -19483,6 +19483,42 @@ void EndGroupPanel()
 
     ImGui::EndGroup();
 }
+
+bool Splitter(bool split_vertically, float initial_ratio, float thickness, float* size1, float* size2, float min_size1, float min_size2, float splitter_long_axis_size)
+{
+	if(split_vertically) {
+		if(*size1 == 0.0)
+			*size1 = ImGui::GetContentRegionAvail().x * initial_ratio;
+		if(*size1 > ImGui::GetContentRegionAvail().x) {
+			*size1 = ImGui::GetContentRegionAvail().x - 10;
+		}
+		*size2 = ImGui::GetContentRegionAvail().x - *size1;
+	} else {
+		if(*size1 == 0.0)
+			*size1 = ImGui::GetContentRegionAvail().y * initial_ratio;
+		if(*size1 > ImGui::GetContentRegionAvail().y) {
+			*size1 = ImGui::GetContentRegionAvail().y - 10;
+		}
+		*size2 = ImGui::GetContentRegionAvail().y - *size1;
+	}
+
+    using namespace ImGui;
+    ImGuiContext& g = *GImGui;
+    ImGuiWindow* window = g.CurrentWindow;
+    ImGuiID id = window->GetID("##Splitter");
+    ImRect bb;
+    bb.Min = window->DC.CursorPos;
+	if(split_vertically)
+		bb.Min.x+=*size1;
+	else
+		bb.Min.y+=*size1;
+
+	ImVec2 is = CalcItemSize(split_vertically ? ImVec2(thickness, splitter_long_axis_size) : ImVec2(splitter_long_axis_size, thickness), 0.0f, 0.0f);
+    bb.Max = bb.Min;
+	bb.Max.x+=is.x;
+	bb.Max.y+=is.y;
+    return SplitterBehavior(bb, id, split_vertically ? ImGuiAxis_X : ImGuiAxis_Y, size1, size2, min_size1, min_size2, 0.0f);
+}
 }; //namespace
 
 //-----------------------------------------------------------------------------
